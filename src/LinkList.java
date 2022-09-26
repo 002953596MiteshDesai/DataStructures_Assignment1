@@ -50,7 +50,7 @@ public class LinkList < T > {
            }
            return i;
        }
-
+    /* Question 1 */
     public void rotateListKTimes ( int k ){
 
         for (int i = 0; i<k; i++) {
@@ -72,7 +72,7 @@ public class LinkList < T > {
 
     }
 
-
+    /* Question 2 */
     public LinkList<T> removeElements(T val){
         LinkList newList = new LinkList<T>();
 
@@ -88,7 +88,7 @@ public class LinkList < T > {
         return newList;
 
     }
-
+    /* Question 3 */
     public void swapNode (int k) {
         Node temp = head;
         int i = 0;
@@ -131,6 +131,7 @@ public class LinkList < T > {
 
 
     }
+    /* Question 4 */
     public LinkList[] splitListToParts( int k) {
         int width = length() / k;
         int rem = length() % k;
@@ -175,79 +176,65 @@ public class LinkList < T > {
 
 
 
-        /*LinkList newList = new LinkList<T>();
 
-        Node temp = head;
-
-        int N = 0;
-        while (temp != null) {
-            temp = temp.next;
-            i++;
-        }
-
-        int width = N / k, rem = N % k;
-        Node ans = new Node( k)
-        temp = head ;
-
-        for (int i = 0; i < k; ++i) {
-            Node head = new Node(0), write = head;
-            for (int j = 0; j < width + (i < rem ? 1 : 0); ++j) {
-                write = write.next = new Node(temp.data);
-                if (temp != null) temp = temp.next;
-            }
-            ans[i] = head.next;
-
-        }}*/
     }
     public void makeCicular(){
-        Node temp = head;
-        while(temp.next!=null){
-            temp = temp.next;
+        if (head!=null){
+            Node temp = head;
+            while(temp.next!=null){
+                temp = temp.next;
+            }
+            temp.next = head;
         }
-        temp.next = head;
     }
 
     public void printCircularList() {
         if (head == null) {
             System.out.println("List is Empty");
+        } else {
+            Node temp = head;
+
+            do {
+                System.out.printf(temp.data + " -> ");
+                temp = temp.next;
+            } while (temp != head);
         }
-        Node temp = head;
-
-        do{
-            System.out.printf(temp.data + " -> ");
-            temp = temp.next;
-        }while(temp!=head);
-
         System.out.println();
 
 
 
     }
-
+    /* Question 5 */
     public void insertIntoSortedCircularList(Node head, int val2 ) {
         /*LinkList newList = new LinkList<T>();*/
+        if (head!=null){
+            Node Prev = head;
+            Node temp = head.next;
+            boolean flag = false;
 
-        Node Prev = head;
-        Node temp = head.next;
-        boolean flag = false;
 
+            while(temp != null && temp != head && flag != true){
+                if (val2 > (int) Prev.data && val2 <= (int) temp.data){
+                    Node addNode = new Node(val2);
+                    addNode.next = temp;
+                    Prev.next = addNode;
+                    flag = true;
+                }
+                Prev = temp;
+                temp = temp.next;
+            }
 
-        while(temp != null && temp != head && flag != true){
-            if (val2 > (int) Prev.data && val2 <= (int) temp.data){
+            if (flag != true){
                 Node addNode = new Node(val2);
                 addNode.next = temp;
                 Prev.next = addNode;
                 flag = true;
             }
-            Prev = temp;
-            temp = temp.next;
-        }
-
-        if (flag != true){
+        } else {
+            System.out.println("here");
             Node addNode = new Node(val2);
-            addNode.next = temp;
-            Prev.next = addNode;
-            flag = true;
+            this.head = addNode;
+            this.head.next = this.head;
         }
 
         /* return newList;*/
